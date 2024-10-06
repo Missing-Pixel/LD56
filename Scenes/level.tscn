@@ -649,11 +649,11 @@ position = Vector2(237, 76)
 
 [node name="BuildingAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_xfm7x")
-volume_db = 10.0
+volume_db = 12.0
 
 [node name="RunnerAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_x8o6n")
-volume_db = 10.0
+volume_db = 12.0
 
 [connection signal="endGame" from="UI Control/TimeController" to="UI Control/ScoreController" method="_on_time_controller_end_game"]
 [connection signal="timeout" from="UI Control/TimeController/Timer" to="UI Control/TimeController" method="_on_timer_timeout"]
