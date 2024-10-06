@@ -1,0 +1,110 @@
+[gd_scene load_steps=17 format=3 uid="uid://cav23qgfup4ob"]
+
+[ext_resource type="Script" path="res://Scripts/SCR_Player.gd" id="1_00566"]
+[ext_resource type="Texture2D" uid="uid://d2s7afyuu1qdo" path="res://Sprites/Kaijuu/Kaiju1.png" id="2_168fe"]
+[ext_resource type="Texture2D" uid="uid://b1x7y7v34uj3x" path="res://Sprites/Kaijuu/Kaiju2.png" id="3_5h2x7"]
+[ext_resource type="Texture2D" uid="uid://dwfetkg8jdxvf" path="res://Sprites/Kaijuu/Kaiju3.png" id="4_cyp3p"]
+[ext_resource type="Texture2D" uid="uid://l1es25avdkmo" path="res://Sprites/Kaijuu/Kaiju4.png" id="5_cosqh"]
+[ext_resource type="Texture2D" uid="uid://dbg385wclm7a" path="res://Sprites/Kaijuu/Kaiju11.png" id="6_10r3b"]
+[ext_resource type="Texture2D" uid="uid://dg1ea18rugmsj" path="res://Sprites/Kaijuu/Kaiju12.png" id="7_i6yva"]
+[ext_resource type="Texture2D" uid="uid://dxqgjqwnuawg7" path="res://Sprites/Kaijuu/Kaiju9.png" id="8_rjp60"]
+[ext_resource type="Texture2D" uid="uid://br3hfadl7dfk0" path="res://Sprites/Kaijuu/Kaiju10.png" id="9_3303k"]
+[ext_resource type="Texture2D" uid="uid://k2xrnkjitvd8" path="res://Sprites/Kaijuu/Kaiju5.png" id="10_nnsa2"]
+[ext_resource type="Texture2D" uid="uid://bb67klhbaxbpm" path="res://Sprites/Kaijuu/Kaiju6.png" id="11_c27xu"]
+[ext_resource type="Texture2D" uid="uid://kqudw6kuvbgm" path="res://Sprites/Kaijuu/Kaiju7.png" id="12_hd1y0"]
+[ext_resource type="Texture2D" uid="uid://rtapawgslrqj" path="res://Sprites/Kaijuu/Kaiju8.png" id="13_pelav"]
+[ext_resource type="AudioStream" uid="uid://byqtt6jhupvrl" path="res://Step.wav" id="14_7wkcp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u65n5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_168fe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5h2x7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cyp3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cosqh")
+}],
+"loop": true,
+"name": &"Down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_10r3b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_i6yva")
+}],
+"loop": true,
+"name": &"Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_rjp60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_3303k")
+}],
+"loop": true,
+"name": &"Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_nnsa2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_c27xu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_hd1y0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_pelav")
+}],
+"loop": true,
+"name": &"Up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0xcj"]
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 3
+motion_mode = 1
+script = ExtResource("1_00566")
+speed = 150.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_u65n5")
+animation = &"Down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3.92657, 3.92657)
+shape = SubResource("CircleShape2D_e0xcj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -500
+limit_top = -500
+limit_right = 500
+limit_bottom = 500
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_7wkcp")
+
+[node name="Timer" type="Timer" parent="AudioStreamPlayer2D"]
+wait_time = 0.4
+
+[connection signal="timeout" from="AudioStreamPlayer2D/Timer" to="." method="_on_timer_timeout"]

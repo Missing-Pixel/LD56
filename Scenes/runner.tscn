@@ -1,0 +1,118 @@
+[gd_scene load_steps=21 format=3 uid="uid://nfrrqu3ymmm8"]
+
+[ext_resource type="Script" path="res://Scripts/SCR_Runner.gd" id="1_cfsq8"]
+[ext_resource type="PackedScene" uid="uid://vhpesy5jg13x" path="res://Scenes/smokescreen.tscn" id="2_4em5c"]
+[ext_resource type="Texture2D" uid="uid://hd0k8f0d18cw" path="res://Sprites/Runner/Runner1.png" id="2_mp7kx"]
+[ext_resource type="Texture2D" uid="uid://difg4y2g4lw0h" path="res://Sprites/Runner/Runner2.png" id="4_p27r0"]
+[ext_resource type="Texture2D" uid="uid://b1sxr4qjpe5cu" path="res://Sprites/Runner/Runner3.png" id="5_3a6y7"]
+[ext_resource type="Texture2D" uid="uid://b12uidstq7x38" path="res://Sprites/Runner/Runner4.png" id="6_13su3"]
+[ext_resource type="Texture2D" uid="uid://c6ijrrs1vpk1n" path="res://Sprites/Runner/Runner9.png" id="7_lfv36"]
+[ext_resource type="Texture2D" uid="uid://d2l8563m858rf" path="res://Sprites/Runner/Runner10.png" id="8_bcb5n"]
+[ext_resource type="Texture2D" uid="uid://dofncibw7ksi" path="res://Sprites/Runner/Runner11.png" id="9_k52pb"]
+[ext_resource type="Texture2D" uid="uid://b5sowgckxcm8" path="res://Sprites/Runner/Runner12.png" id="10_tm7c5"]
+[ext_resource type="Texture2D" uid="uid://tg8vckglm0yi" path="res://Sprites/Runner/Runner5.png" id="11_pyl2s"]
+[ext_resource type="Texture2D" uid="uid://chdhaol2co06e" path="res://Sprites/Runner/Runner6.png" id="12_vq3ij"]
+[ext_resource type="Texture2D" uid="uid://brlr4t5mkgsn2" path="res://Sprites/Runner/Runner7.png" id="13_3wcao"]
+[ext_resource type="Texture2D" uid="uid://b4gburjsh8etu" path="res://Sprites/Runner/Runner8.png" id="14_6724j"]
+[ext_resource type="Texture2D" uid="uid://dlxxvfqsuk44u" path="res://Sprites/Runner/Runner13.png" id="15_hhcrx"]
+[ext_resource type="Texture2D" uid="uid://er7c1mheme7a" path="res://Sprites/Runner/Runner14.png" id="16_ktfvj"]
+[ext_resource type="Texture2D" uid="uid://g4jvt1ir0fnw" path="res://Sprites/Runner/Runner15.png" id="17_xhuvg"]
+[ext_resource type="Texture2D" uid="uid://c0uhroxoh0pab" path="res://Sprites/Runner/Runner16.png" id="18_ueb10"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rqrl1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mp7kx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_p27r0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3a6y7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_13su3")
+}],
+"loop": true,
+"name": &"Down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_lfv36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bcb5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_k52pb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tm7c5")
+}],
+"loop": true,
+"name": &"Left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_pyl2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vq3ij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_3wcao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_6724j")
+}],
+"loop": true,
+"name": &"Right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_hhcrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ktfvj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xhuvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ueb10")
+}],
+"loop": true,
+"name": &"Up",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r7bv8"]
+radius = 9.81256
+
+[node name="Runner" type="Node2D"]
+script = ExtResource("1_cfsq8")
+runningSpeed = 75.0
+runStartDistance = 150.0
+smokeParticle = ExtResource("2_4em5c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_rqrl1")
+animation = &"Down"
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.196154, 0.196154)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(8.6803, 8.6803)
+shape = SubResource("CircleShape2D_r7bv8")
+
+[node name="RunTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="RunTimer" to="." method="_on_run_timer_timeout"]

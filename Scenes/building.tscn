@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkf3nip7xlhre"]
+
+[ext_resource type="Script" path="res://Scripts/SCR_Buildinig.gd" id="1_d3ax7"]
+[ext_resource type="Texture2D" uid="uid://dkib1tgg4xlmx" path="res://Sprites/Building/Building.png" id="2_ah32i"]
+[ext_resource type="PackedScene" uid="uid://cwghggvqdovn6" path="res://Scenes/building_pieces.tscn" id="2_gl206"]
+[ext_resource type="PackedScene" uid="uid://vhpesy5jg13x" path="res://Scenes/smokescreen.tscn" id="3_p5q24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bbmw"]
+
+[node name="Building" type="Node2D"]
+script = ExtResource("1_d3ax7")
+buildingParticle = ExtResource("2_gl206")
+smokeParticle = ExtResource("3_p5q24")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_ah32i")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.138703, 0.138703)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 3.14159
+scale = Vector2(34.17, 34.17)
+shape = SubResource("RectangleShape2D_1bbmw")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
